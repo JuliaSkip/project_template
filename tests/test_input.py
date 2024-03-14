@@ -31,6 +31,34 @@ class TestReadFunctions(unittest.TestCase):
 
         self.assertEqual(actual_text, '')
 
+    def test_read_file_with_pandas_existing_file(self):
+        file_path = 'example.csv'
+        expected_text = ("CSV The mission of the Python Software Foundation is to promote, protect, and advance the "
+                         "Python programming language, and to support and facilitate the growth of a diverse and "
+                         "international community of Python")
+
+        with open(file_path, 'w') as file:
+            file.write(expected_text)
+
+        actual_text = read_file_with_pandas(file_path)
+
+        self.assertEqual(actual_text.strip(), expected_text)
+
+    def test_read_file_with_pandas_non_existing_file(self):
+        file_path = 'non_existing_file.csv'
+
+        with self.assertRaises(FileNotFoundError):
+            read_file_with_pandas(file_path)
+
+    def test_read_file_with_pandas_empty_file(self):
+        file_path = 'empty_file.csv'
+
+        open(file_path, 'a').close()
+
+        actual_text = read_file_with_pandas(file_path)
+
+        self.assertEqual(actual_text.strip(), '')
+
 
 if __name__ == '__main__':
     unittest.main()
