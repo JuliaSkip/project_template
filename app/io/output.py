@@ -1,3 +1,5 @@
+import pandas as pd
+
 def output_to_console(text):
     """
     Function to output text to the console.
@@ -23,3 +25,17 @@ def write_file_builtin(text, file_path):
     """
     with open(file_path, 'w') as file:
         file.write(text)
+
+def write_file_pandas(text, file_path):
+    """
+    Function to write text to a file using pandas library.
+
+    Arguments:
+        text (str): The text to be written to the file.
+        file_path (str): The path to the file to be written.
+
+    Returns:
+        None
+    """
+    df = pd.DataFrame({'data': [text]})
+    df.to_csv(file_path, index=False)

@@ -33,6 +33,8 @@ def read_file_with_pandas(file_path):
     Returns:
         str: The text read from the file.
     """
-    data = pd.read_csv(file_path)
-    text = data.to_string(index=False, header=False)
-    return text
+    try:
+        data = pd.read_csv(file_path)
+        return str(data)
+    except pd.errors.EmptyDataError:
+        return ""
